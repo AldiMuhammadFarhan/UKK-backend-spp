@@ -3,7 +3,7 @@ let db = require('../config/connection');
 module.exports = {
     serviceGetUserBySiswa: (nisn, callBack) => {
         db.query(
-            `select nisn, nis, nama from petugas where nisn=?`,
+            `select nisn, nis, nama from siswa where nisn=?`,
             [nisn],
             (err, results, fields) => {
                 if (err) {

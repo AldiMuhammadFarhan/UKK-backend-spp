@@ -69,8 +69,13 @@ module.exports = {
     },
     // update pembayaran
     controllerUpdateBayar: (req, res) => {
-        let body = req.body;
-        serviceUpdateBayar(body, (err, results) => {
+        let entri_data = {
+            id_pembayaran: req.body.id,
+            jumlah_bayar: req.body.jumlah,
+            kurang_bayar: req.body.kurang,
+            status: req.body.status
+        }
+        serviceUpdateBayar(entri_data, (err, results) => {
             if (err) {
                 console.error(err);
                 return;
