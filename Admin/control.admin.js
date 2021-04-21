@@ -143,29 +143,36 @@ module.exports = {
         });
     },
     controllerLogin: (req, res) => {
-        let body = {
-            username: "admin",
-            password: "admin123"
+        let data = {
+            username: req.body.username,
+            password: req.body.password
         }
-        serviceGetUserByPetugas(body.username, (err, results) => {
-            if (err) {
-                console.error(err);
-            }
-            let result = compareSync(body.password, results.password);
-            if (results) {
-                result.password = undefined;
-                let jsonwebtoken = sign({ result: results }, "secretkey", {
-                    expiresIn: "1h"
-                });
-                return res.json({ jsonwebtoken });
-            }
-            else {
-                return res.json({
-                    succes: 0,
-                    message: "username or password invalid"
-                });
-            }
-        });
+        if (data.username == "admin" && data.password == "admin123") {
+            serviceGetUserByPetugas(data.username, (err, results) => {
+                if (err) {
+                    console.error(err);
+                }
+                let result = compareSync(data.password, results.password);
+                if (results) {
+                    result.password = undefined;
+                    let jsonwebtoken = sign({ result: results }, "secretkey", {
+                        expiresIn: "1h"
+                    });
+                    return res.json({ jsonwebtoken });
+                }
+                else {
+                    return res.json({
+                        succes: 0,
+                        message: "username or password invalid"
+                    });
+                }
+            });
+        }
+        else {
+            return res.json({
+                message: "bukan admin"
+            })
+        }
     },
     // CRUD SPP 
     controllerAddSpp: (req, res) => {
@@ -548,7 +555,9 @@ module.exports = {
             ws.cell(1, 5).string("bulan bayar").style(style);
             ws.cell(1, 6).string("tahun bayar").style(style);
             ws.cell(1, 7).string("kode spp").style(style);
-            ws.cell(1, 8).string("jumlah bayar").style(style);;
+            ws.cell(1, 8).string("jumlah bayar").style(style);
+            ws.cell(1, 9).string("kurang bayar").style(style);
+            ws.cell(1, 10).string("status").style(style);;
 
             for (let i = 0; results.length > i; i++) {
                 ws.cell(i + 2, 1).number(results[i].id_pembayaran).style(style);
@@ -558,7 +567,9 @@ module.exports = {
                 ws.cell(i + 2, 5).string(results[i].bulan_bayar).style(style);
                 ws.cell(i + 2, 6).string(results[i].tahun_bayar).style(style);
                 ws.cell(i + 2, 7).number(results[i].id_spp).style(style);
-                ws.cell(i + 2, 8).number(results[i].jumlah_bayar).style(style);;
+                ws.cell(i + 2, 8).number(results[i].jumlah_bayar).style(style);
+                ws.cell(i + 2, 9).number(results[i].kurang_bayar).style(style);
+                ws.cell(i + 2, 10).string(results[i].status).style(style);;
             }
             if (err) {
                 return res.json({
