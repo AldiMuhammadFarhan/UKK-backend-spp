@@ -268,7 +268,7 @@ module.exports = {
     },
     serviceGetSiswaById: (nisn, callBack) => {
         db.query(
-            `select * from kelas where nisn = ?`,
+            `select * from siswa where nisn = ?`,
             [nisn],
             (err, resuls, fields) => {
                 if (err) {
@@ -343,9 +343,9 @@ module.exports = {
     //update pembayaran
     serviceUpdateBayar: (data, callBack) => {
         db.query(
-            `update pembayaran set kurang_bayar=? , status=? where id_pembayaran=?`,
+            `update pembayaran set jumlah_bayar=?, kurang_bayar=? , status=? where id_pembayaran=?`,
             [
-
+                data.jumlah_bayar,
                 data.kurang_bayar,
                 data.status,
                 data.id_pembayaran

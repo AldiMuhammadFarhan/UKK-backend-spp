@@ -103,8 +103,14 @@ module.exports = {
         });
     },
     controllerUpdatePetugas: (req, res) => {
-        let body = req.body;
-        serviceUpdatePetugas(body, (err, results) => {
+        let register_Data = {
+            id_petugas: req.body.id,
+            username: req.body.username,
+            password: req.body.password,
+            nama_petugas: req.body.nama,
+            level: req.body.level
+        }
+        serviceUpdatePetugas(register_Data, (err, results) => {
             if (err) {
                 console.error(err);
                 return;
@@ -123,7 +129,7 @@ module.exports = {
         });
     },
     controllerDeletePetugas: (req, res) => {
-        let data = req.body
+        let data = req.body;
         serviceDeletePetugas(data, (err, results) => {
             if (err) {
                 console.error(err);
@@ -229,8 +235,12 @@ module.exports = {
         });
     },
     controllerUpdateSpp: (req, res) => {
-        let body = req.body;
-        serviceUpdateSpp(body, (err, results) => {
+        let spp_data = {
+            id_spp: req.body.id,
+            tahun: req.body.tahun,
+            nominal: req.body.nominal
+        }
+        serviceUpdateSpp(spp_data, (err, results) => {
             if (err) {
                 console.error(err);
                 return;
@@ -323,8 +333,12 @@ module.exports = {
         });
     },
     controllerUpdateKelas: (req, res) => {
-        let body = req.body;
-        serviceUpdateKelas(body, (err, results) => {
+        let kelas_Data = {
+            id_kelas: req.body.id,
+            nama_kelas: req.body.nama,
+            kejuruan: req.body.jurusan
+        }
+        serviceUpdateKelas(kelas_Data, (err, results) => {
             if (err) {
                 console.error(err);
                 return;
@@ -389,8 +403,8 @@ module.exports = {
         });
     },
     controllerGetSiswaById: (req, res) => {
-        let id_spp = req.params.id;
-        serviceGetSiswaById(id_spp, (err, results) => {
+        let id_siswa = req.params.id;
+        serviceGetSiswaById(id_siswa, (err, results) => {
             if (err) {
                 console.error(err);
                 return;
@@ -409,7 +423,8 @@ module.exports = {
         });
     },
     controllerGetSiswa: (req, res) => {
-        serviceGetSiswa((err, results) => {
+        let body = req.body;
+        serviceGetSiswa(body, (err, results) => {
             if (err) {
                 console.error(err);
                 return;
@@ -422,8 +437,16 @@ module.exports = {
         });
     },
     controllerUpdateSiswa: (req, res) => {
-        let body = req.body;
-        serviceUpdateSiswa(body, (err, results) => {
+        let siswa_Data = {
+            nisn: req.body.nisn,
+            nis: req.body.nis,
+            nama: req.body.nama,
+            id_kelas: req.body.kelas,
+            alamat: req.body.alamat,
+            no_telp: req.body.nomer,
+            id_spp: req.body.spp
+        }
+        serviceUpdateSiswa(siswa_Data, (err, results) => {
             if (err) {
                 console.error(err);
                 return;
@@ -492,8 +515,13 @@ module.exports = {
     },
     // update pembayaran
     controllerUpdateBayar: (req, res) => {
-        let body = req.body;
-        serviceUpdateBayar(body, (err, results) => {
+        let entri_data = {
+            id_pembayaran : req.body.id,
+            jumlah_bayar : req.body.jumlah,
+            kurang_bayar : req.body.kurang,
+            status : req.body.status
+        };
+        serviceUpdateBayar(entri_data, (err, results) => {
             if (err) {
                 console.error(err);
                 return;
